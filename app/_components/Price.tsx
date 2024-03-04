@@ -65,9 +65,8 @@ export const Price = () => {
               <div className="p-4 py-8 space-y-4 border-b border-gray-700 md:p-8">
                 <span className="text-gray-200 font-medium">{item.name}</span>
                 <div className="text-cyan-400 text-3xl font-semibold">
-                  ${item.price} <span className="text-xl font-normal">
-                    /{item.for}
-                  </span>
+                  ₹{item.price}{" "}
+                  <span className="text-xl font-normal">/{item.for}</span>
                 </div>
                 <p className="text-gray-400">{item.desc}</p>
                 <button className="px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-cyan-500 hover:bg-cyan-600 active:bg-cyan-700">
