@@ -26,6 +26,7 @@ export const Contact = () => {
         toast.success("Your message has been sent successfully");
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Something went wrong, please try again");
     }
   };

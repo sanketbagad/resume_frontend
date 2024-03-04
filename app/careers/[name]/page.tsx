@@ -74,7 +74,7 @@ export default function CareerID() {
         toast.success("Application submitted successfully");
       })
       .catch((err) => {
-        console.error(err);
+        setLoading(false);
         toast.error("Error submitting application");
       });
   };
