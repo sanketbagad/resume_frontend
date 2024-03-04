@@ -20,7 +20,7 @@ export const Dropdown = () => {
         <option value="/pricing">Pricing</option>
         <option value="/careers">Careers</option>
         <option value="/features">Features</option>
-        <option value="/home">Home</option>
+        <option value="/">Home</option>
       </select>
     </div>
   );
