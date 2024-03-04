@@ -18,6 +18,7 @@ export default function CareerID() {
   const [fileUrl, setFileUrl] = useState("" as string);
   const [success, setSuccess] = useState(false as boolean);
   const [fileName, setFileName] = useState("" as string);
+  const [loading, setLoading] = useState(false as boolean);
 
   const { register, handleSubmit, setValue } = useForm();
 
@@ -62,13 +63,14 @@ export default function CareerID() {
       toast.error("Please upload your resume");
       return;
     }
+    setLoading(true);
     axios.post("https://resume-backend-ldlm.onrender.com/api/careers", {
         ...data,
         resume: fileUrl,
         jobTitle: name,
       })
       .then((res) => {
-        console.log(res);
+        setLoading(false);
         toast.success("Application submitted successfully");
       })
       .catch((err) => {
@@ -148,10 +150,11 @@ export default function CareerID() {
                 />
               </div>
               <button
+                disabled={loading}
                 type="submit"
                 className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
               >
-                Submit
+                {loading ? "Submitting..." : "Submit"}
               </button>
             </form>
           </div>

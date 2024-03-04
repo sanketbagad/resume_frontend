@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -11,13 +12,19 @@ export const Contact = () => {
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState(false as boolean);
+
   const onSubmit = async (data: any) => {
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://resume-backend-ldlm.onrender.com/api/contact",
         data
       );
-      toast.success("Your message has been sent successfully");
+      if (response) {
+        setLoading(false);
+        toast.success("Your message has been sent successfully");
+      }
     } catch (error) {
       toast.error("Something went wrong, please try again");
     }
@@ -81,10 +88,11 @@ export const Contact = () => {
               ></textarea>
             </div>
             <button
+              disabled={loading}
               type="submit"
               className="w-full px-4 py-2 text-white font-medium bg-gray-800 hover:bg-gray-700 active:bg-gray-900 rounded-lg duration-150"
             >
-              Submit
+              {loading ? "Sending..." : "Send message"}
             </button>
           </form>
         </div>
