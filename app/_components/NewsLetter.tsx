@@ -1,22 +1,33 @@
 "use client";
 
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 export const NewsLetter = () => {
+  const [loading, setLoading] = useState(false as boolean);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-    const onSubmit = async (data: any) => {
-        try {
-        const response = await axios.post("https://resume-backend-ldlm.onrender.com/api/newsletter", data);
+
+  const onSubmit = async (data: any) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "https://resume-backend-ldlm.onrender.com/api/newsletter",
+        data
+      );
+      if (response) {
+        setLoading(false);
         toast.success("You have been subscribed successfully");
-        } catch (error) {
-        toast.error("You already subscribed");
-        }
-    };
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("You already subscribed");
+    }
+  };
   return (
     <section>
       <div className="relative overflow-hidden bg-gray-900">
@@ -42,9 +53,11 @@ export const NewsLetter = () => {
                 className="text-gray-500 w-full p-2 outline-none"
               />
               <button
-              type="submit"
-              className="p-2 px-3 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-500 active:bg-gray-700 duration-150 outline-none shadow-md focus:shadow-none sm:px-4">
-                Subscribe
+                type="submit"
+                disabled={loading}
+                className="p-2 px-3 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-500 active:bg-gray-700 duration-150 outline-none shadow-md focus:shadow-none sm:px-4"
+              >
+                {loading ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
             <p className="mt-3 max-w-lg text-[15px] text-blue-100 sm:mx-auto">
