@@ -20,13 +20,13 @@ export const Hero = () => {
           </p>
           <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
             <a
-              href="javascript:void(0)"
+              href="/resume-import"
               className="block py-2 px-4 text-white font-medium bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-lg hover:shadow-none"
             >
               Start Building
             </a>
             <a
-              href="javascript:void(0)"
+              href="resume-parser"
               className="block py-2 px-4 text-gray-400 hover:text-gray-500 font-medium duration-150 active:bg-gray-100 border rounded-lg"
             >
               Check ATS
