@@ -40,7 +40,6 @@ export default function CareerID() {
   const onFileChange = (e: any) => {
     const file = e.target.files[0];
     const fileName = file.name + Date.now();
-    console.log(file);
     const storageRef = ref(storage, fileName);
 
     uploadBytes(storageRef, file).then((snapshot) => {
