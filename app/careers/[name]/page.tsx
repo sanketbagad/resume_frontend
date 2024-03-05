@@ -10,6 +10,8 @@ import { firebaseCong } from "@/app/firebase/config";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { FallingLines } from "react-loader-spinner";
+
 
 export default function CareerID() {
   // get the name from the URL
@@ -19,6 +21,7 @@ export default function CareerID() {
   const [success, setSuccess] = useState(false as boolean);
   const [fileName, setFileName] = useState("" as string);
   const [loading, setLoading] = useState(false as boolean);
+  const [fileLoading, setFileLoading] = useState(false as boolean);
 
   const { register, handleSubmit, setValue } = useForm();
 
@@ -41,6 +44,7 @@ export default function CareerID() {
     const file = e.target.files[0];
     const fileName = file.name + Date.now();
     const storageRef = ref(storage, fileName);
+    setFileLoading(true);
 
     uploadBytes(storageRef, file).then((snapshot) => {
       // then get the download URL after the file is uploaded
@@ -51,9 +55,13 @@ export default function CareerID() {
           snapshot.metadata.fullPath
       );
       setFileName(file.name);
+      setFileLoading(false);
       setSuccess(true);
 
       toast.success("File uploaded successfully");
+    }).catch((err) => {
+      setFileLoading(false);
+      toast.error("Something went wrong, please try again");
     });
   };
 
@@ -142,11 +150,20 @@ export default function CareerID() {
                 </div>
               </div>
               <div className="flex items-center gap-5 justify-center">
+                {fileLoading ? (
+                <FallingLines
+                color="#4fa94d"
+                width="100"
+                visible={true}
+                />
+                ) 
+                : ( 
                 <Uploader
                   onFileChange={onFileChange}
                   success={success}
                   fileName={fileName}
                 />
+                )}
               </div>
               <button
                 disabled={loading}
