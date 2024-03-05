@@ -31,7 +31,7 @@ export default function CareerID() {
 
   useEffect(() => {
     if (user) {
-      setValue("email", user.primaryEmailAddress);
+      setValue("email", user.primaryEmailAddress?.emailAddress);
       setValue("firstName", user.firstName);
       setValue("lastName", user.lastName);
     }
