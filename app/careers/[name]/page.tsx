@@ -75,7 +75,7 @@ export default function CareerID() {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error("Error submitting application");
+        toast.success("You have already applied for this job before");
       });
   };
 
